@@ -67,16 +67,11 @@ namespace TestRunners_XUnit
 
     }
 
-    public class XunitSetupClass : IDisposable
+    public class XunitSetupClass
     {
         public XunitSetupClass()
         {
             int i = 0;
-        }
-
-        public void Dispose()
-        {
-            int k = 1;
         }
 
     }
