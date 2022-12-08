@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex 10 - TAF Runners\\TestRunners_MSTest\\TestRunners_MSTest\\TestRunners_MSTest.csproj": {}
+    "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex10TAFRunners\\TestRunners_MSTest\\TestRunners_MSTest\\TestRunners_MSTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex 10 - TAF Runners\\TestRunners_MSTest\\TestRunners_MSTest\\TestRunners_MSTest.csproj": {
+    "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex10TAFRunners\\TestRunners_MSTest\\TestRunners_MSTest\\TestRunners_MSTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex 10 - TAF Runners\\TestRunners_MSTest\\TestRunners_MSTest\\TestRunners_MSTest.csproj",
+        "projectUniqueName": "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex10TAFRunners\\TestRunners_MSTest\\TestRunners_MSTest\\TestRunners_MSTest.csproj",
         "projectName": "TestRunners_MSTest",
-        "projectPath": "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex 10 - TAF Runners\\TestRunners_MSTest\\TestRunners_MSTest\\TestRunners_MSTest.csproj",
+        "projectPath": "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex10TAFRunners\\TestRunners_MSTest\\TestRunners_MSTest\\TestRunners_MSTest.csproj",
         "packagesPath": "C:\\Users\\UISANLE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex 10 - TAF Runners\\TestRunners_MSTest\\TestRunners_MSTest\\obj\\",
+        "outputPath": "C:\\Users\\UISANLE\\Desktop\\EPAM\\Ex10TAFRunners\\TestRunners_MSTest\\TestRunners_MSTest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -55,6 +55,14 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.1.0, )"
+            },
+            "Selenium.WebDriver": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "Selenium.WebDriver.ChromeDriver": {
+              "target": "Package",
+              "version": "[108.0.5359.7100, )"
             },
             "coverlet.collector": {
               "target": "Package",
