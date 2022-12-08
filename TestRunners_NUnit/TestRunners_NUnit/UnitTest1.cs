@@ -1,83 +1,79 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
 namespace TestRunners_NUnit
 {
     [TestFixture]
     public class Tests
     {
+        static int testCounter;
+        public IWebDriver driver;
+
+        public IWebElement Username => driver.FindElement(By.Name("user-name"));
+        public IWebElement Password => driver.FindElement(By.Name("password"));
+        public IWebElement LoginBtn => driver.FindElement(By.XPath("//*[@id='login-button']"));
+
         [OneTimeSetUp]
-        public static void ClassPrecondition()
+        public void ClassSetUp()
         {
-            TestContext.WriteLine("Nunit Class Precondition output");
+            TestContext.WriteLine("Nunit Class Precondition - Class Setup");
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Url = "https://www.saucedemo.com/";
         }
 
         [SetUp]
-        public void TestPrecondition()
+        public void TestSetUp()
         {
-            TestContext.WriteLine("Nunit Test Precondition output");
+            TestContext.WriteLine("Nunit Test Precondition - Test Setup");
+            testCounter++;
+            Console.WriteLine("Test started number {0}", testCounter);
         }
 
-
-        [Test]
-        public void Test_Pass()
+        [Test, Order(1)]
+        public void SuccessLogin()
         {
-            string expected = "leshani";
-            string actual = "leshani";
-            Assert.That(actual, Is.EqualTo(expected));
+            Username.SendKeys("standard_user");
+            Password.SendKeys("secret_sauce");
+            LoginBtn.Click();
+
+            Assert.That(driver.Url, Is.EqualTo("https://www.saucedemo.com/inventory.html"));
+            TestContext.WriteLine("Successfully Login");
         }
 
-        [Test]
-        public void Test_Pass2()
-        {
-            void FunctionUnderTest()
-            {
-                throw new Exception();
-            }
-
-            Action _functionUnderTest = FunctionUnderTest;
-            Assert.Throws<Exception>(() => _functionUnderTest());
-
-        }
-
-        [TestCase(4, 8, 12)]
-        [TestCase(5, 10, 15)]
-        [TestCase(100, 200, 300)]
-        public void Test_Add(double x, double y, double e)
-        {
-            double expected = e;
-            double actual = x + y;
-            Assert.That(expected, Is.EqualTo(actual));
-        }
-
-        [Test]
+        [Test, Order(2)]
         [Ignore("Checking the ignore attribute")]
         public void Test_Ignore()
         {
             TestContext.WriteLine("Ignoring test");
+            Assert.Pass();
         }
 
-        [Test]
-        public void Test_Fail()
+        [Test, Order(3)]
+        public void FailLogin()
         {
-            Assert.Fail();
-        }
+            driver.Url = "https://www.saucedemo.com";
+            Username.SendKeys("standard_user");
+            Password.SendKeys("scrt_sauce");
+            LoginBtn.Click();
 
-        [Test]
-        public void Test_Fail2()
-        {
-            string expected = "leshani";
-            string actual = "leshani123";
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(driver.Url, Is.EqualTo("https://www.saucedemo.com/inventory.html"));
+            TestContext.WriteLine("Login Failed");
         }
 
         [TearDown]
         public void NUnitTearDown()
         {
-            TestContext.WriteLine("Nunit Test Postcondition output");
+
+            Console.WriteLine("Test Count : ", testCounter);
+            TestContext.WriteLine("Nunit Test Postcondition - Test Tear Down");
         }
 
         [OneTimeTearDown]
         public void NUnitOneTimeTearDown()
         {
-            TestContext.WriteLine("Nunit Class Postcondition output");
+            TestContext.WriteLine("Nunit Class Postcondition - Class Tear Down");
+            driver.Quit();
         }
 
     }
