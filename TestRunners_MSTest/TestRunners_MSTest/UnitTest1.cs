@@ -1,9 +1,18 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
 namespace TestRunners_MSTest
 {
     [TestClass]
     public class UnitTest1
     {
+        IWebDriver driver;
         public TestContext TestContext { get; set; }
+
+        public IWebElement Username => driver.FindElement(By.Name("user-name"));
+        public IWebElement Password => driver.FindElement(By.Name("password"));
+        public IWebElement LoginBtn => driver.FindElement(By.XPath("//*[@id='login-button']"));
+
 
         [ClassInitialize]
         public static void ClassPrecondition(TestContext testContext)
@@ -15,39 +24,22 @@ namespace TestRunners_MSTest
         public void TestPrecondition()
         {
             TestContext.WriteLine("MS test Test Precondition output");
+
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Url = "https://www.saucedemo.com/";
+
         }
 
         [TestMethod]
-        public void Test_Pass()
+        public void SuccessLogin()
         {
-            string expected = "leshani";
-            string actual = "leshani";
-            Assert.AreEqual(expected, actual);
-        }
+            Username.SendKeys("standard_user");
+            Password.SendKeys("secret_sauce");
+            LoginBtn.Click();
 
-        [TestMethod]
-        public void Test_Pass2()
-        {
-
-            void FunctionUnderTest()
-            {
-                throw new Exception();
-            }
-
-            Action _functionUnderTest = FunctionUnderTest;
-            Assert.ThrowsException<Exception>(() => _functionUnderTest());
-
-        }
-
-        [DataTestMethod]
-        [DataRow(8, 4, 4)]
-        [DataRow(10, 5, 5)]
-        [DataRow(10, 10, 0)]
-        public void Test_Sub(double x, double y, double e)
-        {
-            double expected = e;
-            double actual = x - y;
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual("https://www.saucedemo.com/inventory.html", driver.Url);
+            TestContext.WriteLine("Successfully Login");
         }
 
         [TestMethod]
@@ -58,23 +50,22 @@ namespace TestRunners_MSTest
         }
 
         [TestMethod]
-        public void Test_Fail()
+        public void FailLogin()
         {
-            Assert.Fail();
-        }
+            driver.Url = "https://www.saucedemo.com";
+            Username.SendKeys("standard_user");
+            Password.SendKeys("scrt_sauce");
+            LoginBtn.Click();
 
-        [TestMethod]
-        public void Test_Fail2()
-        {
-            string expected = "leshani";
-            string actual = "leshani123";
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual("https://www.saucedemo.com/inventory.html", driver.Url);
+            TestContext.WriteLine("Login Failed");
         }
 
         [TestCleanup]
         public void MSTestCleanup()
         {
             TestContext.WriteLine("MS test Test Postcondition output");
+            driver.Dispose();
         }
 
         [ClassCleanup]
